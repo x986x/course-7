@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,7 +88,7 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_DB"),
         "USER": os.getenv("POSTGRES_USER"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("DATABASE"),
+        "HOST": 'database',
         "PORT": os.getenv("POSTGRES_PORT"),
     }
 }
@@ -129,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -148,11 +149,11 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    f"http://127.0.0.1:8000",
+    f'http://{"0.0.0.0" if ALLOWED_HOSTS[0] == "*" else ALLOWED_HOSTS[0]}',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    f"http://127.0.0.1:8000",
+    f'http://{"0.0.0.0" if ALLOWED_HOSTS[0] == "*" else ALLOWED_HOSTS[0]}',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
@@ -160,8 +161,8 @@ TELEGRAM_BOT_URL = (
     f"https://api.telegram.org/bot{os.getenv('TELEGRAM_BOT_TOKEN')}/sendMessage"
 )
 
-CELERY_BROKER_URL = f"redis://127.0.0.1:6379/0"
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://broker:6379/0'
+CELERY_RESULT_BACKEND = 'redis://broker:6379/0'
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
