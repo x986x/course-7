@@ -1,0 +1,14 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "email": "dmitry.lepyansky@yandex.ru",
+            "password": "Qaz123",
+            "is_superuser": true,
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-07-10T10:00:00Z"
+        }
+    }
+]
